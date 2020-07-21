@@ -4,42 +4,110 @@ console.log(fifaData);
 console.log('its working');
 // ⚽️ M  V P ⚽️ //
 
-/* Task 1: Investigate the data above. Practice accessing data by console.log-ing the following pieces of data 
+// Task 1: Investigate the data above. Practice accessing data by console.log-ing the following pieces of data 
 
-(a) Home Team name for 2014 world cup final
-(b) Away Team name for 2014 world cup final
-(c) Home Team goals for 2014 world cup final
-(d) Away Team goals for 2014 world cup final
-(e) Winner of 2014 world cup final */
+// (a) Home Team name for 2014 world cup final
 
+function home2014(fifaData){
+    for(let i = 0; i < fifaData.length; i++){
+        if(fifaData[i].Year === 2014 && fifaData[i].Stage === 'Final'){
+            return fifaData[i]['Home Team Name'];
+        }
+    }
+}
+
+console.log(home2014(fifaData));
+
+// (b) Away Team name for 2014 world cup final
+
+function away2014(fifaData){
+    for(let i = 0; i < fifaData.length; i++){
+        if(fifaData[i].Year === 2014 && fifaData[i].Stage === 'Final'){
+            return fifaData[i]['Away Team Name'];
+        }
+    }
+}
+
+console.log(away2014(fifaData));
+
+// (c) Home Team goals for 2014 world cup final
+
+function home2014goals(fifaData){
+    for(let i = 0; i < fifaData.length; i++){
+        if(fifaData[i].Year === 2014 && fifaData[i].Stage === 'Final'){
+            return fifaData[i]['Home Team Goals'];
+        }
+    }
+}
+
+console.log('From line 43:', home2014goals(fifaData));
+
+// (d) Away Team goals for 2014 world cup final
+
+function away2014goals(fifaData){
+    for(let i = 0; i < fifaData.length; i++){
+        if(fifaData[i].Year === 2014 && fifaData[i].Stage === 'Final'){
+            return fifaData[i]['Away Team Goals'];
+        }
+    }
+}
+
+console.log('From line 55:', away2014goals(fifaData));
+
+
+// (e) Winner of 2014 world cup final 
+
+function winner2014(fifaData){
+    for(let i = 0; i < fifaData.length; i++){
+        if(fifaData[i].Year === 2014 && fifaData[i].Stage === 'Final'){
+            if(fifaData[i]['Home Team Goals'] > fifaData[i]['Away Team Goals']){
+                return fifaData[i]['Home Team Name'];
+            }else {
+                return fifaData[i]['Away Team Name'];
+            }
+        }
+    }
+}
+    
+console.log('From line 72:', winner2014(fifaData));
 
 /* Task 2: Create a function called  getFinals that takes `data` as an argument and returns an array of objects with only finals data */
 
-function getFinals(/* code here */) {
-
-    /* code here */
+function getFinals(data) {
+    const finalArray = data.filter(function(item){
+        return item.Stage === 'Final';
+    }) ;
+return finalArray;
 
 };
+
+console.log(getFinals(fifaData));
 
 /* Task 3: Implement a higher-order function called `getYears` that accepts the callback function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
 
-function getYears(/* code here */) {
-
-    /* code here */
-
+function getYears(callback) {
+   const years = callback(fifaData).map(function(item){
+       return item.Year;
+   });
+   return years;
 };
 
-getYears();
+console.log(getYears(getFinals));
 
 /* Task 5: Implement a higher-order function called `getWinners`, that accepts the callback function `getFinals()` and determine the winner (home or away) of each `finals` game. Return the name of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
-
-    /* code here */
-
+function getWinners(callback) {
+    const winners = callback(fifaData).map(function(item){
+        if(item['Home Team Goals'] > item['Away Team Goals']){
+            return item['Home Team Name'];
+        }else{
+            return item['Away Team Name'];
+        }
+    });
+    return winners;
 };
 
-getWinners();
+console.log(getWinners(getFinals));
 
 /* Task 6: Implement a higher-order function called `getWinnersByYear` that accepts the following parameters and returns a set of strings "In {year}, {country} won the world cup!" 
 
